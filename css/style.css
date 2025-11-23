@@ -1,11 +1,8 @@
 /* ===================================================================
-   AEROMATRIX — PRODUCTION-GRADE MASTER CSS
-   Modern • Consistent • Responsive • Pixel-Perfect
+   AEROMATRIX — RESPONSIVE REBUILD (SEARCH REMOVED)
 =================================================================== */
 
-/* --------------------------------------------------------------
-   1. ROOT SYSTEM — Global Design Tokens
-----------------------------------------------------------------*/
+/* ROOT TOKENS */
 :root {
   --bg: #0d1117;
   --bg-light: #161b22;
@@ -19,12 +16,10 @@
   --radius-lg: 24px;
   --radius-sm: 10px;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --transition: 0.28s ease;
+  --transition: 0.25s ease;
 }
 
-/* --------------------------------------------------------------
-   2. RESET + GLOBAL
-----------------------------------------------------------------*/
+/* GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
@@ -35,27 +30,25 @@ html, body {
   font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.65;
   overflow-x: hidden;
+  line-height: 1.65;
 }
 
 section {
-  padding: 90px 60px;
+  padding: 80px 40px;
 }
 
 .title {
   text-align: center;
-  font-size: 42px;
+  font-size: 38px;
+  margin-bottom: 45px;
   font-weight: 800;
-  margin-bottom: 50px;
   background: linear-gradient(45deg, var(--accent), var(--accent-warm));
   -webkit-background-clip: text;
   color: transparent;
 }
 
-/* --------------------------------------------------------------
-   3. PRELOADER
-----------------------------------------------------------------*/
+/* =========================== PRELOADER =========================== */
 #preloader {
   position: fixed;
   inset: 0;
@@ -75,124 +68,164 @@ section {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* --------------------------------------------------------------
-   4. HEADER (Sticky, Blurred, Polished)
-----------------------------------------------------------------*/
+/* =========================== HEADER =========================== */
 header {
   position: sticky;
   top: 0;
   z-index: 2000;
-  background: rgba(13, 17, 23, 0.7);
+  background: rgba(13,17,23,0.7);
   backdrop-filter: blur(10px);
-  padding: 18px 50px;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--transition);
-  border-bottom: 1px solid var(--border);
 }
+
 header.scrolled {
-  background: rgba(13, 17, 23, 0.95);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  background: rgba(13,17,23,0.95);
+  box-shadow: var(--shadow);
 }
 
 .logo {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
   color: var(--accent);
-  letter-spacing: 0.5px;
 }
 
 nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 nav a {
+  color: var(--text);
   text-decoration: none;
   font-size: 16px;
-  color: var(--text);
   transition: var(--transition);
 }
 nav a:hover {
   color: var(--accent);
 }
 
-/* --------------------------------------------------------------
-   5. DROPDOWN + MEGA MENU (Fixed)
-----------------------------------------------------------------*/
-.dropdown { position: relative; }
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+/* MOBILE MENU BUTTON */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--accent);
+}
+
+/* MOBILE NAVBAR */
+@media(max-width:830px){
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        gap: 18px;
+        background: var(--bg-light);
+        width: 100%;
+        padding: 25px;
+        margin-top: 15px;
+        border-radius: var(--radius);
+    }
+
+    nav.mobile-open {
+        display: flex;
+    }
+
+    .dropdown-content {
+        position: static;
+        min-width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+        padding-left: 0;
+    }
+
+    .mega-menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================== DROPDOWN & MEGA MENU =========================== */
+.dropdown {
+  position: relative;
+}
 .dropdown-content {
   position: absolute;
   top: 40px;
-  left: 0;
   background: var(--bg-light);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 22px;
-  box-shadow: var(--shadow);
-  min-width: 650px;
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
   display: none;
+  box-shadow: var(--shadow);
 }
-.dropdown:hover .dropdown-content { display: block; }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 .mega-menu {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 18px;
 }
 .mega-menu h3 {
-  font-size: 18px;
   color: var(--accent);
-  margin-bottom: 10px;
+  font-size: 18px;
 }
 .mega-menu a {
   color: var(--text-muted);
-  text-decoration: none;
-  display: block;
   padding: 6px 0;
+  display: block;
 }
 
-
-/* --------------------------------------------------------------
-   7. HERO (Improved readability + ratios)
-----------------------------------------------------------------*/
+/* =========================== HERO =========================== */
 .hero {
-  height: 92vh;
-  background-position: center;
+  min-height: 70vh;
+  height: auto;
+  padding: 80px 25px;
   background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  position: relative;
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0));
 }
 .hero-content {
-  position: relative;
+  width: 100%;
   max-width: 900px;
-  padding: 20px;
+  margin: auto;
 }
-.hero-content h1 {
-  font-size: 62px;
-  background: linear-gradient(45deg, var(--accent), var(--accent-warm));
-  color: transparent;
-  -webkit-background-clip: text;
+.hero h1 {
+  font-size: 54px;
+  background: linear-gradient(45deg,var(--accent),var(--accent-warm));
+  -webkit-background-clip:text;
+  color:transparent;
 }
-.hero-content p {
+.hero p {
   margin-top: 12px;
   font-size: 20px;
 }
 
 .cta-btn {
-  margin-top: 26px;
-  padding: 14px 38px;
-  background: linear-gradient(45deg, var(--accent), var(--accent-warm));
+  margin-top: 24px;
+  padding: 14px 36px;
+  background: linear-gradient(45deg,var(--accent),var(--accent-warm));
   border: none;
   color: white;
   font-size: 18px;
@@ -202,46 +235,36 @@ nav a:hover {
 }
 .cta-btn:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
 }
 
-/* --------------------------------------------------------------
-   8. GRID + CARDS (Perfect image ratio fix)
-----------------------------------------------------------------*/
+/* =========================== GRID & CARDS =========================== */
 .grid {
   display: grid;
-  gap: 35px;
-  grid-template-columns:repeat(3,1fr);
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .card {
   background: var(--card);
-  padding: 22px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  transition: var(--transition);
+  padding: 22px;
   box-shadow: var(--shadow);
+  transition: var(--transition);
 }
-
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: var(--accent);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.45);
 }
 
 .card img {
-    width: 100%;
-    aspect-ratio: 4 / 3;     /* Uniform ratio */
-    object-fit: cover;
-    border-radius: var(--radius-sm);
-    display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
 }
 
-
-
-/* --------------------------------------------------------------
-   9. FULLSCREEN VIEWER (Media Page)
-----------------------------------------------------------------*/
+/* =========================== FULLSCREEN GALLERY =========================== */
 #fullscreen-overlay {
   position: fixed;
   inset: 0;
@@ -249,7 +272,8 @@ nav a:hover {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 5000;
+  z-index: 4000;
+  overflow: hidden;
 }
 #fullscreen-image {
   max-width: 90%;
@@ -257,66 +281,157 @@ nav a:hover {
   border-radius: var(--radius);
 }
 
-/* --------------------------------------------------------------
-   10. FOOTER
-----------------------------------------------------------------*/
+/* =========================== FOOTER =========================== */
 footer {
-  background: #0b0f13;
   padding: 40px;
   text-align: center;
   border-top: 1px solid var(--border);
 }
 
-/* --------------------------------------------------------------
-   11. COOKIE BANNER
-----------------------------------------------------------------*/
+/* =========================== COOKIE =========================== */
 #cookie-banner {
   position: fixed;
   bottom: 0;
-  background: var(--bg-light);
   width: 100%;
-  padding: 18px;
-  border-top: 1px solid var(--border);
+  padding: 16px;
+  background: var(--bg-light);
   display: none;
   justify-content: center;
   gap: 20px;
-  z-index: 3000;
 }
 
-/* --------------------------------------------------------------
-   12. CHAT WIDGET
-----------------------------------------------------------------*/
+/* =========================== CHAT WIDGET =========================== */
 #chat-widget {
   position: fixed;
+  right: 25px;
   bottom: 80px;
-  right: 30px;
   width: 300px;
   background: var(--card);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
   z-index: 3500;
+  box-shadow: var(--shadow);
 }
 #chat-header {
   background: var(--accent);
   padding: 12px;
   color: white;
-  font-weight: 600;
 }
 #chat-body {
   padding: 15px;
+  overflow: hidden;
 }
 
-/* --------------------------------------------------------------
-   13. RESPONSIVE FIXES
-----------------------------------------------------------------*/
-@media (max-width: 900px) {
-  section { padding: 70px 30px; }
-  .hero-content h1 { font-size: 48px; }
+/* =========================== RESPONSIVE FIXES =========================== */
+
+@media(max-width:900px){
+  section { padding: 70px 25px; }
+  .hero h1 { font-size: 44px; }
 }
-@media (max-width: 600px) {
-  header { padding: 15px 25px; }
-  .hero { height: 78vh; }
-  .hero-content h1 { font-size: 36px; }
-  nav { display: none; } /* Future Mobile Menu Hook */
+
+@media(max-width:830px){
+
+  header {
+    padding: 14px 22px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    background: var(--bg-light);
+    width: 100%;
+    padding: 25px;
+    margin-top: 15px;
+    border-radius: var(--radius);
+    gap: 20px;
+  }
+
+  nav.mobile-open {
+    display: flex;
+  }
+
+  .dropdown-content {
+    position: static;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .mega-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+}
+
+/* ====================== MOBILE NAVIGATION FIX ====================== */
+
+.menu-toggle {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--accent);
+}
+
+/* Enable mobile nav at 830px */
+@media(max-width:830px){
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        display: none;           /* hide desktop nav */
+        flex-direction: column;
+        background: var(--bg-light);
+        width: 100%;
+        padding: 25px;
+        margin-top: 20px;
+        border-radius: var(--radius);
+        gap: 20px;
+    }
+
+    nav.mobile-open {
+        display: flex !important;
+    }
+
+    /* Fix mega menu for mobile */
+    .dropdown-content {
+        position: static;
+        min-width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+
+    .mega-menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Hide chat widget on screens below 500px */
+@media (max-width: 500px) {
+    #chat-widget {
+        display: none !important;
+    }
+}
+
+/* CONTACT PAGE RESPONSIVE FIX */
+@media (max-width: 830px) {
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+        padding: 0 10px;
+    }
 }

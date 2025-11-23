@@ -10,7 +10,6 @@ window.addEventListener("load", () => {
         });
     }
 
-    // Trigger hero animation if exists
     const hero = document.querySelector(".hero .hero-content");
     if (hero) {
         gsap.from(hero.children, {
@@ -23,52 +22,46 @@ window.addEventListener("load", () => {
     }
 });
 
-// ========================= HEADER SHADOW ON SCROLL =========================
+// ========================= HEADER SHADOW =========================
 window.addEventListener("scroll", () => {
     const header = document.querySelector("header");
-    if (window.scrollY > 40) {
-        header.classList.add("scrolled");
-    } else {
-        header.classList.remove("scrolled");
-    }
+    header.classList.toggle("scrolled", window.scrollY > 40);
 });
 
-// ========================= SEARCH OVERLAY =========================
-const searchIcon = document.getElementById("search-icon");
-const searchOverlay = document.getElementById("search-overlay");
-const searchInput = document.getElementById("search-input");
+// ========================= MOBILE MENU =========================
 
-if (searchIcon) {
-    searchIcon.addEventListener("click", (e) => {
-        e.preventDefault();
-        searchOverlay.style.display = "flex";
-        gsap.fromTo(
-            searchOverlay,
-            { opacity: 0 },
-            { opacity: 1, duration: 0.4 }
-        );
-        searchInput.focus();
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector("nav");
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("mobile-open");
     });
 }
 
-if (searchOverlay) {
-    searchOverlay.addEventListener("click", (e) => {
-        if (e.target === searchOverlay) {
-            gsap.to(searchOverlay, {
-                opacity: 0,
-                duration: 0.3,
-                onComplete: () => (searchOverlay.style.display = "none"),
-            });
+// ========================= MOBILE DROPDOWN =========================
+document.querySelectorAll(".dropdown > .dropbtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        if (window.innerWidth <= 830) {
+            // If the button is PRODUCTS → allow navigation
+            if (btn.getAttribute("href") === "products.html") {
+                return; // do NOT block click
+            }
+
+            // Otherwise, dropdown toggle behavior
+            e.preventDefault();
+            btn.parentElement.classList.toggle("active");
         }
     });
-}
+});
+
 
 // ========================= BACK TO TOP =========================
 const backToTop = document.getElementById("back-to-top");
 if (backToTop) {
     backToTop.addEventListener("click", (e) => {
         e.preventDefault();
-        gsap.to(window, { duration: 0.8, scrollTo: 0, ease: "power2.out" });
+        gsap.to(window, { duration: 0.8, scrollTo: 0 });
     });
 }
 
@@ -94,22 +87,22 @@ if (cookieBanner && cookieAccept) {
 // ========================= CHAT WIDGET =========================
 const chatWidget = document.getElementById("chat-widget");
 const chatHeader = document.getElementById("chat-header");
-let chatOpen = false;
 
 if (chatWidget && chatHeader) {
     chatHeader.addEventListener("click", () => {
-        chatOpen = !chatOpen;
         const body = document.getElementById("chat-body");
+        const open = body.style.height === "auto";
 
-        if (chatOpen) {
-            gsap.to(body, { height: "auto", opacity: 1, duration: 0.3 });
-        } else {
+        if (open) {
             gsap.to(body, { height: 0, opacity: 0, duration: 0.3 });
+        } else {
+            gsap.set(body, { height: "auto" });
+            gsap.from(body, { height: 0, opacity: 0, duration: 0.3 });
         }
     });
 }
 
-// ========================= FULLSCREEN IMAGE VIEWER (MEDIA PAGE) =========================
+// ========================= FULLSCREEN VIEWER =========================
 const fullscreenOverlay = document.getElementById("fullscreen-overlay");
 const fullscreenImage = document.getElementById("fullscreen-image");
 
@@ -121,8 +114,8 @@ window.openFull = function (src) {
 
     gsap.fromTo(
         fullscreenImage,
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.4, ease: "power3.out" }
+        { scale: 0.85, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.35 }
     );
 };
 
@@ -131,7 +124,7 @@ window.closeFull = function () {
 
     gsap.to(fullscreenOverlay, {
         opacity: 0,
-        duration: 0.3,
+        duration: 0.25,
         onComplete: () => {
             fullscreenOverlay.style.display = "none";
             fullscreenOverlay.style.opacity = 1;
@@ -139,19 +132,14 @@ window.closeFull = function () {
     });
 };
 
-// ========================= SMOOTH APPEAR ANIMATIONS =========================
+// ========================= CARD ANIMATIONS =========================
 const cards = document.querySelectorAll(".card");
-if (cards.length > 0) {
-    cards.forEach((card) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-            },
-            y: 40,
-            opacity: 0,
-            duration: 0.7,
-            ease: "power2.out",
-        });
+cards.forEach((card) => {
+    gsap.from(card, {
+        scrollTrigger: { trigger: card, start: "top 85%" },
+        y: 40,
+        opacity: 0,
+        duration: 0.7,
     });
-}
+});
+
