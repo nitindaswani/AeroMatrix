@@ -153,29 +153,6 @@ nav a:hover {
   padding: 6px 0;
 }
 
-/* --------------------------------------------------------------
-   6. SEARCH OVERLAY
-----------------------------------------------------------------*/
-#search-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 4000;
-}
-#search-input {
-  width: 80%;
-  max-width: 650px;
-  padding: 22px;
-  background: var(--card);
-  border-radius: var(--radius);
-  border: none;
-  color: var(--text);
-  font-size: 22px;
-  outline: none;
-}
 
 /* --------------------------------------------------------------
    7. HERO (Improved readability + ratios)
@@ -234,7 +211,6 @@ nav a:hover {
 .grid {
   display: grid;
   gap: 35px;
-  grid-template-rows: repeat(2,1fr);
   grid-template-columns:repeat(3,1fr);
 }
 
